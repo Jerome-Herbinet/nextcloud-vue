@@ -88,10 +88,9 @@
 </docs>
 
 <template>
-	<NcPopover :shown.sync="open"
+	<NcPopover v-model="open"
 		:container="container"
 		v-bind="$attrs"
-		v-on="$listeners"
 		@after-show="afterShow"
 		@after-hide="afterHide">
 		<template #trigger>

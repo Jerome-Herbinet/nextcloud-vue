@@ -109,31 +109,33 @@ export default {
 </docs>
 
 <template>
-	<NcPopover v-bind="$attrs" v-on="$listeners" @apply-hide="handleClose">
+	<NcPopover v-bind="$attrs" @apply-hide="handleClose">
 		<template #trigger>
 			<slot />
 		</template>
 		<div class="color-picker">
-			<transition name="slide" mode="out-in">
-				<div v-if="!advanced" class="color-picker__simple">
-					<button v-for="(color, index) in palette"
-						:key="index"
-						:style="{'background-color': color }"
-						class="color-picker__simple-color-circle"
-						:class="{ 'color-picker__simple-color-circle--active' : color === currentColor }"
-						type="button"
-						@click="pickColor(color)">
-						<Check v-if="color === currentColor"
-							:size="20" />
-					</button>
+			<Transition name="slide" mode="out-in">
+				<div>
+					<div v-if="!advanced" class="color-picker__simple">
+						<button v-for="(color, index) in palette"
+							:key="index"
+							:style="{'background-color': color }"
+							class="color-picker__simple-color-circle"
+							:class="{ 'color-picker__simple-color-circle--active' : color === currentColor }"
+							type="button"
+							@click="pickColor(color)">
+							<Check v-if="color === currentColor"
+								:size="20" />
+						</button>
+					</div>
+					<Chrome v-if="advanced"
+						v-model="currentColor"
+						class="color-picker__advanced"
+						:disable-alpha="true"
+						:disable-fields="true"
+						@input="pickColor" />
 				</div>
-				<Chrome v-if="advanced"
-					v-model="currentColor"
-					class="color-picker__advanced"
-					:disable-alpha="true"
-					:disable-fields="true"
-					@input="pickColor" />
-			</transition>
+			</Transition>
 			<div class="color-picker__navigation">
 				<button v-if="advanced"
 					class="color-picker__navigation-button back"
@@ -167,7 +169,7 @@ import ArrowLeft from 'vue-material-design-icons/ArrowLeft.vue'
 import Check from 'vue-material-design-icons/Check.vue'
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue'
 
-import { Chrome } from 'vue-color'
+import { Chrome } from '@ckpack/vue-color'
 
 export default {
 	name: 'NcColorPicker',
@@ -402,7 +404,7 @@ export default {
 }
 
 .slide {
-	&-enter {
+	&-enter-from {
 		transform: translateX(-50%);
 		opacity: 0;
 	}
@@ -410,7 +412,7 @@ export default {
 		transform: translateX(0);
 		opacity: 1;
 	}
-	&-leave {
+	&-leave-from {
 		transform: translateX(0);
 		opacity: 1;
 	}

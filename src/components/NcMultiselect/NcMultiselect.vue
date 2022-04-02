@@ -169,7 +169,7 @@ export default {
 	-->
 	<VueMultiselect ref="VueMultiselect"
 		v-model="localValue"
-		v-bind="$attrs"
+		v-bind="{ ...$attrs, ...scoping }"
 		:class="[
 			multiple ? 'multiselect--multiple': 'multiselect--single'
 		]"
@@ -183,21 +183,20 @@ export default {
 		:track-by="trackBy"
 		tag-placeholder="create"
 		@close="ariaExpanded = false"
-		@open="ariaExpanded = true"
-		v-on="$listeners">
+		@open="ariaExpanded = true">
 		<!-- This is the scope to format the list of available options in the dropdown
 			Two templates to avoid registering the slot unnecessary -->
 		<template #option="scope">
 			<!-- Avatar display select slot override.
 				You CANNOT use this scope, we will replace it by this -->
-			<NcListItemIcon v-if="userSelect && !$scopedSlots['option']"
+			<NcListItemIcon v-if="userSelect && !$slots['option']"
 				v-bind="scope.option"
 				:title="scope.option[label]"
 				:search="scope.search" />
 
 			<!-- Ellipsis in the middle if no option slot
 				is defined in the parent -->
-			<NcEllipsisedOption v-else-if="!$scopedSlots['option']"
+			<NcEllipsisedOption v-else-if="!$slots['option']"
 				:name="getOptionLabel(scope.option)"
 				:option="scope.option"
 				:search="scope.search"
@@ -218,7 +217,7 @@ export default {
 
 		<!-- Passing the singleLabel slot, this is used to format the selected
 			option on NON-multiple multiselects -->
-		<template v-for="(_, slot) of $scopedSlots" #[slot]="scope">
+		<template v-for="(_, slot) of $slots" #[slot]="scope">
 			<slot :name="slot" v-bind="scope" />
 		</template>
 
@@ -365,6 +364,7 @@ export default {
 		return {
 			elWidth: 0,
 			ariaExpanded: false,
+			scoping: { [`data-v-${SCOPE_VERSION}`]: '' },
 		}
 	},
 	computed: {
@@ -428,7 +428,7 @@ export default {
 		this.updateWidth()
 		window.addEventListener('resize', this.updateWidth)
 	},
-	beforeDestroy() {
+	beforeUnmount() {
 		window.removeEventListener('resize', this.updateWidth)
 	},
 
@@ -465,8 +465,8 @@ export default {
 		 */
 		updateWidth() {
 			// width of the tags wrapper minus the padding
-			if (this.$el && this.$el.querySelector('.multiselect__tags-wrap')) {
-				this.elWidth = this.$el.querySelector('.multiselect__tags-wrap').offsetWidth - 10
+			if (this.$refs.VueMultiselect?.$el?.querySelector('.multiselect__tags-wrap')) {
+				this.elWidth = this.$refs.VueMultiselect?.$el?.querySelector('.multiselect__tags-wrap').offsetWidth - 10
 			}
 		},
 	},

@@ -123,11 +123,10 @@ export default {
 		ref="inputField"
 		:autofocus="$attrs.autofocus"
 		:trailing-button-label="clearTextLabel"
-		v-on="$listeners"
 		@input="handleInput">
 		<!-- Default slot for the leading icon -->
 		<slot />
-		<template slot="trailing-button-icon">
+		<template #trailing-button-icon>
 			<Close v-if="trailingButtonIcon === 'close'" :size="20" />
 			<ArrowRight v-else-if="trailingButtonIcon === 'arrowRight'" :size="20" />
 		</template>

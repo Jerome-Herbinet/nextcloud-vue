@@ -86,10 +86,7 @@ The prop `:focus-trap="false"` help to prevent it when the default behavior is n
 		:distance="10"
 		:arrow-padding="10"
 		v-bind="$attrs"
-		:popper-class="popoverBaseClass"
-		v-on="$listeners"
-		@apply-show="afterShow"
-		@apply-hide="afterHide">
+		:popper-class="popoverBaseClass">
 		<!-- This will be the popover target (for the events and position) -->
 		<slot name="trigger" />
 		<!-- This will be the content of the popover -->
@@ -128,7 +125,7 @@ export default {
 		'after-hide',
 	],
 
-	beforeDestroy() {
+	beforeUnmount() {
 		this.clearFocusTrap()
 	},
 

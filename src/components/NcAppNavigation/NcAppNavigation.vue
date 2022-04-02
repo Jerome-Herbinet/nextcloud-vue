@@ -89,16 +89,21 @@ export default {
 	data() {
 		return {
 			open: true,
+			// Watching an injected property directly does not work
+			// so we watch a data property instead.
+			localIsMobile: this.isMobile,
 		}
 	},
 
 	watch: {
-		isMobile() {
-			this.open = !this.isMobile
+		localIsMobile(isMobile) {
+			this.open = !isMobile
 		},
 	},
 
 	mounted() {
+		// Sync the state
+		this.open = !this.localIsMobile
 		subscribe('toggle-navigation', this.toggleNavigationByEventBus)
 		// Emit an event with the initial state of the navigation
 		emit('navigation-toggled', {

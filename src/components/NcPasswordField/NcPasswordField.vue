@@ -104,7 +104,6 @@ export default {
 		:minlength="rules.minlength"
 		:trailing-button-label="trailingButtonLabel"
 		:disabled="disabled"
-		v-on="$listeners"
 		@trailing-button-click="togglePasswordVisibility"
 		@input="handleInput">
 		<!-- Default slot for the leading icon -->

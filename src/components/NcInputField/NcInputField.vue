@@ -44,7 +44,6 @@
 					'input-field__input--error': error,
 				}"
 				:value="value"
-				v-on="$listeners"
 				@input="handleInput">
 
 			<!-- Leading icon -->
@@ -62,7 +61,7 @@
 				@click="handleTrailingButtonClick">
 				<!-- Populating this slot creates a trailing button within the
 				input boundaries that emits a `trailing-button-click` event -->
-				<template slot="icon">
+				<template #icon>
 					<slot name="trailing-button-icon" />
 				</template>
 			</NcButton>
