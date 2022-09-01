@@ -829,7 +829,9 @@ export default {
 			if (focusElement) {
 				this.removeCurrentActive()
 				const liMenuParent = focusElement.closest('li.action')
-				focusElement.focus()
+				setTimeout(() => {
+					focusElement.focus()
+				}, 10)
 				if (liMenuParent) {
 					liMenuParent.classList.add('active')
 				}
