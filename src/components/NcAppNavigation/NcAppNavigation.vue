@@ -178,7 +178,7 @@ export default {
 		display: flex;
 		flex-direction: column;
 		gap: var(--default-grid-baseline, 4px);
-		padding: calc(var(--default-grid-baseline, 4px) * 2);
+		padding: $app-navigation-padding;
 	}
 }
 
