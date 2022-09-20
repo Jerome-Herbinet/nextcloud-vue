@@ -85,6 +85,26 @@ export default {
 	<NcAvatar display-name="Robbie Hyeon-Jeong" :is-no-user="true" />
 ```
 
+### Avatar on complex background
+
+```
+<template>
+	<div class="avatar-background">
+		<NcAvatar class="avatar" :is-no-user="true" display-name="Cecilia Rohese " />
+	</div>
+</template>
+<style scoped>
+.avatar-background {
+	width: 80px;
+	height: 60px;
+	background: linear-gradient(to bottom, #1b9ee5 0%,#1b9ee5 49.99%,#f4dc00 50%,#f4dc00 100%);
+}
+.avatar {
+	margin: 15px 25px;
+}
+</style>
+```
+
 </docs>
 <template>
 	<div ref="main"
