@@ -144,8 +144,7 @@ All available types are: 'date', 'datetime-local', 'month', 'time' and 'week', p
 			:value="formattedValue"
 			:min="formattedMin"
 			:max="formattedMax"
-			v-bind="$attrs"
-			v-on="listeners">
+			v-bind="$attrs">
 	</div>
 </template>
 
@@ -355,10 +354,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	.native-datetime-picker{
-		display: flex;;
+	.native-datetime-picker {
+		display: flex;
 		flex-direction: column;
 	}
+
 	.native-datetime-picker .native-datetime-picker--input {
 		width: 100%;
 		flex: 0 0 auto;
